@@ -1,0 +1,104 @@
+                create_database
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123')
+print(mydb.connection_id)
+cur=mydb.cursor()
+cur.execute('create database Inventory_Management')
+
+                create table
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+t='create table manufacture(manfacture_id integer primary key not null,items_name varchar(30) not null,color varchar(30) not null,no_of_items integer(4) not null,defective_items integer(4) not null,manfact_by varchar(30) not null)'
+# cur.execute(t)
+a='insert into manufacture(manfacture_id,items_name ,color,no_of_items,defective_items,manfact_by) values (%s,%s,%s,%s,%s,%s)'
+# val=(111,'wooden table','pink',6,2,'anitha resort'),(112,'wooden chair','blue',6,2,'automotive company'),(114,'water bottle','pink',6,2,'petroleum product'),(118,'toys','red',6,2,'book stories'),(115,'shirt','white',7,0,'electroic motor')
+val=(190,'pencils','brown',6,2,'SS Export')
+cur.executemany(a,val)
+mydb.commit()
+print('Data inserted successfully')
+
+                goodstable
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+t='create table goods(good_id integer(4) primary key not null,,purchase_id integer not null, manufacture_id integer(4) not null,manufacture_date date not null,foreign key(manufacture_id) references manufacture(manfacture_id))'
+# cur.execute(t)
+i='insert into goods(good_id,manufacture_id,manufacture_date) values (%s,%s,%s,%s)'
+val=(200,400,111,'2023-05-01'),(201,401,112,'23-05-06'),(202,402,114,'2023-05-08'),(204,405,118,'2023-05-06')
+cur.executemany(i,val)
+mydb.commit()
+print('Data inserted successfully')
+ 
+                           purchase table
+
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+t='create table purchase(purchase_id integer primary key not null,purchase_amount float not null,purchased_by varchar(30) not null,purchase_date date not null)'
+# cur.execute(t)
+i='insert into purchase(purchase_id,purchase_amount,purchased_by,purchase_date) values(%s,%s,%s,%s)'
+val=(400,4000,'oray','2023-04-18'),(401,4001,'toys','2023-07-6'),(402,4002,'Mykids','2023-05-3'),(405,4008,'Mykid_toys','2023-04-01')
+cur.executemany(i,val)
+mydb.commit()
+print('Data inserted successfully')
+
+                          sales table
+
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+t='create table sales(sale_id integer primary key not null,sold_by varchar(30) not null,sales_date date not null,good_id integer(4) not null,profitmargin float,foreign key(good_id) references goods(good_id))'
+# cur.execute(t)
+i='insert into sales values(sale_id,sold_by,sales_date,good_id,profitmargin) values (%s,%s,%s,%s,%s)'
+val=(500,'ORay','2023-04-03',111,100.0),(501,'toys','2023-05-06',20,112.0),(500,'ORay','2023-04-03',10,114,1200.9),(500,'book','2023-04-01',1118,10.0)
+cur.executemany(i,val)
+mydb.commit()
+print('Data inserted successfully')
+ 
+                               query1
+
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+t='delete from purchase where items_name="shirt" and purshase_date="2023-04-01" and purchased_by="oray" '
+cur.execute(t)
+mydb.commit()
+
+                                query2
+
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+t='update manufacture set quantity=500 where item_color="red" and manfacture_id in (select manufacture_id from goods where good_id in(select good_id from sale where items_name="Mykids"))'
+cur.execute(t)
+mydb.commit()
+
+                                 query3
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+u='select *from goods join manufacture on goods.manufacture_id=manufacture.manfacture_id where items_name="wooden Chair" and manufacture_date<"2023-05-01"'
+cur.execute(u)
+rows=cur.fetchall()
+for i in rows:
+    print(i)
+mydb.commit()
+
+                                   query4
+
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
+print(mydb.connection_id)
+cur=mydb.cursor()
+s='select sales.profitmargin from sales join goods on sales.good_id=goods.good_id join manufacture on goods.manufacture_id=manufacture.manufacture_id join purchase on goods.purchase_id=purchase.purchase_id=purchase.purchase_id where items_name ="wooden table" and items_name="water bottle" and manfact_by="ssExport"'
+cur.execute(s)
+mydb.commit()
+               
