@@ -19,8 +19,7 @@ cur=mydb.cursor()
 t='create table manufacture(manfacture_id integer primary key not null,items_name varchar(30) not null,color varchar(30) not null,no_of_items integer(4) not null,defective_items integer(4) not null,manfact_by varchar(30) not null)'
 # cur.execute(t)
 a='insert into manufacture(manfacture_id,items_name ,color,no_of_items,defective_items,manfact_by) values (%s,%s,%s,%s,%s,%s)'
-# val=(111,'wooden table','pink',6,2,'anitha resort'),(112,'wooden chair','blue',6,2,'automotive company'),(114,'water bottle','pink',6,2,'petroleum product'),(118,'toys','red',6,2,'book stories'),(115,'shirt','white',7,0,'electroic motor')
-val=(190,'pencils','brown',6,2,'SS Export')
+val=(111,'wooden table','pink',6,2,'anitha resort'),(112,'wooden chair','blue',6,2,'automotive company'),(114,'water bottle','pink',6,2,'petroleum product'),(118,'toys','red',6,2,'book stories'),(115,'shirt','white',7,0,'electroic motor'),(190,'pencils','brown',6,2,'SS Export')
 cur.executemany(a,val)
 mydb.commit()
 print('Data inserted successfully')
