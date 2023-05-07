@@ -55,7 +55,7 @@ cur=mydb.cursor()
 t='create table sales(sale_id integer primary key not null,sold_by varchar(30) not null,sales_date date not null,good_id integer(4) not null,profitmargin float,foreign key(good_id) references goods(good_id))'
 # cur.execute(t)
 i='insert into sales values(sale_id,sold_by,sales_date,good_id,profitmargin) values (%s,%s,%s,%s,%s)'
-val=(500,'ORay','2023-04-03',111,100.0),(501,'toys','2023-05-06',20,112.0),(500,'ORay','2023-04-03',10,114,1200.9),(500,'book','2023-04-01',1118,10.0)
+val=(500,'ORay','2023-04-03',111,100.0),(501,'mykid_toys','2023-05-06',20,112.0),(500,'mykids','2023-04-03',114,1200.9),(500,'book','2023-04-01',118,10.0)
 cur.executemany(i,val)
 mydb.commit()
 print('Data inserted successfully')
