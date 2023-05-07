@@ -1,11 +1,17 @@
-                create_database
+                                 project.py
+import mysql.connector
+mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123')
+print(mydb.connection_id)
+               
+               
+               create_database.py
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123')
 print(mydb.connection_id)
 cur=mydb.cursor()
 cur.execute('create database Inventory_Management')
 
-                create table
+                create table.py
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
 print(mydb.connection_id)
@@ -19,7 +25,7 @@ cur.executemany(a,val)
 mydb.commit()
 print('Data inserted successfully')
 
-                goodstable
+                goodstable.py
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
 print(mydb.connection_id)
@@ -32,7 +38,7 @@ cur.executemany(i,val)
 mydb.commit()
 print('Data inserted successfully')
  
-                           purchase table
+                           purchase table.py
 
 import mysql.connector
 mydb=mysql.connector.connect(host='localhost',user='root',password='Saipraneetha@123',database='inventory_management')
